@@ -1,4 +1,23 @@
+[project]
+name = "fisher"
+version = "0.0.0"
+description = "Fast Fisher's Exact Test"
+readme = "README.md"
+license = "BSD-3-Clause"
+requires-python = ">=3.8"
+authors = [
+    { name = "Haibao Tang" },
+    { name = "Brent Pedersen", email = "bpederse@gmail.com" },
+]
+keywords = ["statistics", "cython"]
+dependencies = ["numpy"]
+
 [build-system]
 requires = ["setuptools", "cython", "numpy", "versioneer"]
 build-backend = "setuptools.build_meta"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+]
 
