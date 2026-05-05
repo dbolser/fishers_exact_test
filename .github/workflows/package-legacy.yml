@@ -1,74 +1,40 @@
-name: Package
+name: Package Legacy
 
 on:
   push:
     tags:
       - v*
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
 
-  wheel-linux-aarch64:
-    name: Build Linux wheels (Aarch64)
-    runs-on: ubuntu-24.04-arm
+  wheel-macos-x86_64:
+    name: Build MacOS wheels (x86-64)
+    runs-on: macos-13
     strategy:
       matrix:
         python-tag:
-        - cp38-manylinux_aarch64
-        - cp39-manylinux_aarch64
-        - cp310-manylinux_aarch64
-        - cp311-manylinux_aarch64
-        - cp312-manylinux_aarch64
-        - cp313-manylinux_aarch64
-        - cp314-manylinux_aarch64
+        - cp38-macosx_x86_64
+        - cp39-macosx_x86_64
+        - cp310-macosx_x86_64
+        - cp311-macosx_x86_64
+        - cp312-macosx_x86_64
+        - cp313-macosx_x86_64
     steps:
     - uses: actions/checkout@v6
       with:
         submodules: true
         fetch-depth: 0
-    - name: Build manylinux wheels
-      uses: pypa/cibuildwheel@v3.4.1
-      env:
-        CIBW_ARCHS: aarch64
-        CIBW_BUILD: ${{ matrix.python-tag }}
-        CIBW_BUILD_VERBOSITY: 2
-        CIBW_MANYLINUX_AARCH64_IMAGE: quay.io/pypa/manylinux2014_aarch64:2026.04.24-1
-        CIBW_BEFORE_BUILD: pip install cython pytest
-        CIBW_TEST_COMMAND: python -c "import fisher"
-        CIBW_TEST_REQUIRES: importlib-resources
-      with:
-        output-dir: dist
-    - uses: actions/upload-artifact@v7
-      with:
-        name: wheels-${{ matrix.python-tag }}
-        path: dist/*
-
-  wheel-linux-x86_64:
-    name: Build Linux wheels (x86-64)
-    runs-on: ubuntu-22.04
-    strategy:
-      matrix:
-        python-tag:
-        - cp38-manylinux_x86_64
-        - cp39-manylinux_x86_64
-        - cp310-manylinux_x86_64
-        - cp311-manylinux_x86_64
-        - cp312-manylinux_x86_64
-        - cp313-manylinux_x86_64
-        - cp314-manylinux_x86_64
-    steps:
-    - uses: actions/checkout@v6
-      with:
-        submodules: true
-        fetch-depth: 0
-    - name: Build manylinux wheels
+    - name: Build wheels
       uses: pypa/cibuildwheel@v3.4.1
       env:
         CIBW_ARCHS: x86_64
         CIBW_BUILD: ${{ matrix.python-tag }}
-        CIBW_MANYLINUX_X86_64_IMAGE: quay.io/pypa/manylinux2014_x86_64:2026.04.24-1
         CIBW_BEFORE_BUILD: pip install cython pytest
         CIBW_BUILD_VERBOSITY: 2
-        CIBW_BEFORE_TEST: "git status && ls -lh"
         CIBW_TEST_COMMAND: python -c "import fisher"
         CIBW_TEST_REQUIRES: importlib-resources
       with:
@@ -78,28 +44,26 @@ jobs:
         name: wheels-${{ matrix.python-tag }}
         path: dist/*
 
-  wheel-macos-aarch64-m14:
-    name: Build MacOS wheels (Aarch64, macos-14)
-    runs-on: macos-14
+  wheel-legacy-linux-x86_64:
+    name: Build legacy Linux wheels (x86-64, Python 3.6-3.7)
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         python-tag:
-        - cp310-macosx_arm64
-        - cp311-macosx_arm64
-        - cp312-macosx_arm64
-        - cp313-macosx_arm64
-        - cp314-macosx_arm64
+        - cp36-manylinux_x86_64
+        - cp37-manylinux_x86_64
     steps:
     - uses: actions/checkout@v6
       with:
-        fetch-depth: 0
         submodules: true
+        fetch-depth: 0
     - name: Build manylinux wheels
-      uses: pypa/cibuildwheel@v3.4.1
+      uses: pypa/cibuildwheel@v2.11.4
       env:
-        CIBW_ARCHS: arm64
+        CIBW_ARCHS: x86_64
         CIBW_BUILD: ${{ matrix.python-tag }}
-        CIBW_BEFORE_BUILD: pip install cython pytest
+        CIBW_MANYLINUX_X86_64_IMAGE: quay.io/pypa/manylinux2014_x86_64
+        CIBW_BEFORE_BUILD: pip install "cython<0.30" numpy pytest
         CIBW_BUILD_VERBOSITY: 2
         CIBW_TEST_COMMAND: python -c "import fisher"
         CIBW_TEST_REQUIRES: importlib-resources
@@ -110,28 +74,26 @@ jobs:
         name: wheels-${{ matrix.python-tag }}
         path: dist/*
 
-  wheel-macos-aarch64-m15:
-    name: Build MacOS wheels (Aarch64, macos-15)
-    runs-on: macos-15
+  wheel-legacy-linux-aarch64:
+    name: Build legacy Linux wheels (Aarch64, Python 3.6-3.7)
+    runs-on: ubuntu-24.04-arm
     strategy:
       matrix:
         python-tag:
-        - cp310-macosx_arm64
-        - cp311-macosx_arm64
-        - cp312-macosx_arm64
-        - cp313-macosx_arm64
-        - cp314-macosx_arm64
+        - cp36-manylinux_aarch64
+        - cp37-manylinux_aarch64
     steps:
     - uses: actions/checkout@v6
       with:
-        fetch-depth: 0
         submodules: true
+        fetch-depth: 0
     - name: Build manylinux wheels
-      uses: pypa/cibuildwheel@v3.4.1
+      uses: pypa/cibuildwheel@v2.11.4
       env:
-        CIBW_ARCHS: arm64
+        CIBW_ARCHS: aarch64
         CIBW_BUILD: ${{ matrix.python-tag }}
-        CIBW_BEFORE_BUILD: pip install cython pytest
+        CIBW_MANYLINUX_AARCH64_IMAGE: quay.io/pypa/manylinux2014_aarch64
+        CIBW_BEFORE_BUILD: pip install "cython<0.30" numpy pytest
         CIBW_BUILD_VERBOSITY: 2
         CIBW_TEST_COMMAND: python -c "import fisher"
         CIBW_TEST_REQUIRES: importlib-resources
@@ -142,30 +104,54 @@ jobs:
         name: wheels-${{ matrix.python-tag }}
         path: dist/*
 
-  wheel-win32-x86_64:
-    name: Build Windows wheels (x86-64)
-    runs-on: windows-2022
+  wheel-legacy-macos-x86_64:
+    name: Build legacy MacOS wheels (x86-64, Python 3.6-3.7)
+    runs-on: macos-13
     strategy:
       matrix:
         python-tag:
-        - cp38-win_amd64
-        - cp39-win_amd64
-        - cp310-win_amd64
-        - cp311-win_amd64
-        - cp312-win_amd64
-        - cp313-win_amd64
-        - cp314-win_amd64
+        - cp36-macosx_x86_64
+        - cp37-macosx_x86_64
     steps:
     - uses: actions/checkout@v6
       with:
         submodules: true
         fetch-depth: 0
-    - name: Build manylinux wheels
-      uses: pypa/cibuildwheel@v3.4.1
+    - name: Build wheels
+      uses: pypa/cibuildwheel@v2.11.4
+      env:
+        CIBW_ARCHS: x86_64
+        CIBW_BUILD: ${{ matrix.python-tag }}
+        CIBW_BEFORE_BUILD: pip install "cython<0.30" numpy pytest
+        CIBW_BUILD_VERBOSITY: 2
+        CIBW_TEST_COMMAND: python -c "import fisher"
+        CIBW_TEST_REQUIRES: importlib-resources
+      with:
+        output-dir: dist
+    - uses: actions/upload-artifact@v7
+      with:
+        name: wheels-${{ matrix.python-tag }}
+        path: dist/*
+
+  wheel-legacy-win-x86_64:
+    name: Build legacy Windows wheels (x86-64, Python 3.6-3.7)
+    runs-on: windows-2019
+    strategy:
+      matrix:
+        python-tag:
+        - cp36-win_amd64
+        - cp37-win_amd64
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        submodules: true
+        fetch-depth: 0
+    - name: Build wheels
+      uses: pypa/cibuildwheel@v2.11.4
       env:
         CIBW_ARCHS: AMD64
         CIBW_BUILD: ${{ matrix.python-tag }}
-        CIBW_BEFORE_BUILD: pip install cython pytest
+        CIBW_BEFORE_BUILD: pip install "cython<0.30" numpy pytest
         CIBW_BUILD_VERBOSITY: 2
         CIBW_TEST_COMMAND: python -c "import fisher"
         CIBW_TEST_REQUIRES: importlib-resources
@@ -226,14 +212,15 @@ jobs:
     environment: PyPI
     runs-on: ubuntu-24.04
     name: Upload
+    permissions: {}
     needs:
     - sdist
     - test-sdist
-    - wheel-linux-aarch64
-    - wheel-linux-x86_64
-    - wheel-macos-aarch64-m14
-    - wheel-macos-aarch64-m15
-    - wheel-win32-x86_64
+    - wheel-macos-x86_64
+    - wheel-legacy-linux-x86_64
+    - wheel-legacy-linux-aarch64
+    - wheel-legacy-macos-x86_64
+    - wheel-legacy-win-x86_64
     steps:
     - uses: actions/download-artifact@v8
       with:
