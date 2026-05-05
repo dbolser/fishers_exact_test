@@ -84,12 +84,12 @@ jobs:
     strategy:
       matrix:
         python-tag:
-          #- cp38-macosx_x86_64
-          #- cp39-macosx_x86_64
-          #- cp310-macosx_x86_64
-          #- cp311-macosx_x86_64
+        #- cp38-macosx_x86_64
+        #- cp39-macosx_x86_64
+        #- cp310-macosx_x86_64
+        #- cp311-macosx_x86_64
         - cp312-macosx_x86_64
-          #- cp313-macosx_x86_64
+        #- cp313-macosx_x86_64
     steps:
     - uses: actions/checkout@v6
       with:
@@ -111,8 +111,8 @@ jobs:
         name: wheels-${{ matrix.python-tag }}
         path: dist/*
 
-  wheel-macos-aarch64:
-    name: Build MacOS wheels (Aarch64)
+  wheel-macos-aarch64-m14:
+    name: Build MacOS wheels (Aarch64, macos-14)
     runs-on: macos-14
     strategy:
       matrix:
@@ -143,8 +143,8 @@ jobs:
         name: wheels-${{ matrix.python-tag }}
         path: dist/*
 
-  wheel-macos-aarch64:
-    name: Build MacOS wheels (Aarch64)
+  wheel-macos-aarch64-m15:
+    name: Build MacOS wheels (Aarch64, macos-15)
     runs-on: macos-15
     strategy:
       matrix:
@@ -264,7 +264,8 @@ jobs:
     - test-sdist
     - wheel-linux-aarch64
     - wheel-linux-x86_64
-    - wheel-macos-aarch64
+    - wheel-macos-aarch64-m14
+    - wheel-macos-aarch64-m15
     - wheel-macos-x86_64
     - wheel-win32-x86_64
     steps:
@@ -283,4 +284,3 @@ jobs:
         user: __token__
         password: ${{ secrets.PYPI_API_TOKEN }}
         skip_existing: true
-
