@@ -249,4 +249,4 @@ jobs:
     - uses: pypa/gh-action-pypi-publish@release/v1
       if: startsWith(github.ref, 'refs/tags')
       with:
-        skip_existing: true
+        skip-existing: true
