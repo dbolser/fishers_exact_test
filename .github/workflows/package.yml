@@ -226,6 +226,8 @@ jobs:
     environment: PyPI
     runs-on: ubuntu-24.04
     name: Upload
+    permissions:
+      id-token: write
     needs:
     - sdist
     - test-sdist
@@ -247,6 +249,4 @@ jobs:
     - uses: pypa/gh-action-pypi-publish@release/v1
       if: startsWith(github.ref, 'refs/tags')
       with:
-        user: __token__
-        password: ${{ secrets.PYPI_API_TOKEN }}
         skip_existing: true
