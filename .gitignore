@@ -4,3 +4,6 @@ build/
 dist/
 *.pyc
 MANIFEST
+
+# Don't track the Cython source files, since they are generated from .pyx files
+src/*.c
