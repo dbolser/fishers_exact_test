@@ -36,7 +36,7 @@ cmdclass = {"build_ext": _build_ext}
 cmdclass.update(versioneer.get_cmdclass())
 
 setup_options = dict(
-    name="fisher",
+    name="fisher-dbolser-test",
     version=versioneer.get_version(),
     description="Fast Fisher's Exact Test",
     url="http://github.com/brentp/fishers_exact_test",
