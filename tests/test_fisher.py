@@ -236,9 +236,9 @@ class TestPValuesObject:
     def test_comparison_raises(self):
         """Comparing a PValues object directly should raise an exception."""
         p = pvalue(12, 5, 29, 2)
-        with pytest.raises(Exception, match="must compare with one of the attributes"):
+        with pytest.raises(TypeError, match="must compare with one of the attributes"):
             p < 0.05
-        with pytest.raises(Exception, match="must compare with one of the attributes"):
+        with pytest.raises(TypeError, match="must compare with one of the attributes"):
             p == 0.05
 
 
