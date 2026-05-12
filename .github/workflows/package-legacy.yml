@@ -44,124 +44,6 @@ jobs:
         name: wheels-${{ matrix.python-tag }}
         path: dist/*
 
-  wheel-legacy-linux-x86_64:
-    name: Build legacy Linux wheels (x86-64, Python 3.6-3.7)
-    runs-on: ubuntu-22.04
-    strategy:
-      matrix:
-        python-tag:
-        - cp36-manylinux_x86_64
-        - cp37-manylinux_x86_64
-    steps:
-    - uses: actions/checkout@v6
-      with:
-        submodules: true
-        fetch-depth: 0
-    - name: Build manylinux wheels
-      uses: pypa/cibuildwheel@v2.11.4
-      env:
-        CIBW_ARCHS: x86_64
-        CIBW_BUILD: ${{ matrix.python-tag }}
-        CIBW_MANYLINUX_X86_64_IMAGE: quay.io/pypa/manylinux2014_x86_64
-        CIBW_BEFORE_BUILD: pip install "cython<0.30" numpy pytest
-        CIBW_BUILD_VERBOSITY: 2
-        CIBW_TEST_COMMAND: python -c "import fisher"
-        CIBW_TEST_REQUIRES: importlib-resources
-      with:
-        output-dir: dist
-    - uses: actions/upload-artifact@v7
-      with:
-        name: wheels-${{ matrix.python-tag }}
-        path: dist/*
-
-  wheel-legacy-linux-aarch64:
-    name: Build legacy Linux wheels (Aarch64, Python 3.6-3.7)
-    runs-on: ubuntu-24.04-arm
-    strategy:
-      matrix:
-        python-tag:
-        - cp36-manylinux_aarch64
-        - cp37-manylinux_aarch64
-    steps:
-    - uses: actions/checkout@v6
-      with:
-        submodules: true
-        fetch-depth: 0
-    - name: Build manylinux wheels
-      uses: pypa/cibuildwheel@v2.11.4
-      env:
-        CIBW_ARCHS: aarch64
-        CIBW_BUILD: ${{ matrix.python-tag }}
-        CIBW_MANYLINUX_AARCH64_IMAGE: quay.io/pypa/manylinux2014_aarch64
-        CIBW_BEFORE_BUILD: pip install "cython<0.30" numpy pytest
-        CIBW_BUILD_VERBOSITY: 2
-        CIBW_TEST_COMMAND: python -c "import fisher"
-        CIBW_TEST_REQUIRES: importlib-resources
-      with:
-        output-dir: dist
-    - uses: actions/upload-artifact@v7
-      with:
-        name: wheels-${{ matrix.python-tag }}
-        path: dist/*
-
-  wheel-legacy-macos-x86_64:
-    name: Build legacy MacOS wheels (x86-64, Python 3.6-3.7)
-    runs-on: macos-13
-    strategy:
-      matrix:
-        python-tag:
-        - cp36-macosx_x86_64
-        - cp37-macosx_x86_64
-    steps:
-    - uses: actions/checkout@v6
-      with:
-        submodules: true
-        fetch-depth: 0
-    - name: Build wheels
-      uses: pypa/cibuildwheel@v2.11.4
-      env:
-        CIBW_ARCHS: x86_64
-        CIBW_BUILD: ${{ matrix.python-tag }}
-        CIBW_BEFORE_BUILD: pip install "cython<0.30" numpy pytest
-        CIBW_BUILD_VERBOSITY: 2
-        CIBW_TEST_COMMAND: python -c "import fisher"
-        CIBW_TEST_REQUIRES: importlib-resources
-      with:
-        output-dir: dist
-    - uses: actions/upload-artifact@v7
-      with:
-        name: wheels-${{ matrix.python-tag }}
-        path: dist/*
-
-  wheel-legacy-win-x86_64:
-    name: Build legacy Windows wheels (x86-64, Python 3.6-3.7)
-    runs-on: windows-2019
-    strategy:
-      matrix:
-        python-tag:
-        - cp36-win_amd64
-        - cp37-win_amd64
-    steps:
-    - uses: actions/checkout@v6
-      with:
-        submodules: true
-        fetch-depth: 0
-    - name: Build wheels
-      uses: pypa/cibuildwheel@v2.11.4
-      env:
-        CIBW_ARCHS: AMD64
-        CIBW_BUILD: ${{ matrix.python-tag }}
-        CIBW_BEFORE_BUILD: pip install "cython<0.30" numpy pytest
-        CIBW_BUILD_VERBOSITY: 2
-        CIBW_TEST_COMMAND: python -c "import fisher"
-        CIBW_TEST_REQUIRES: importlib-resources
-      with:
-        output-dir: dist
-    - uses: actions/upload-artifact@v7
-      with:
-        name: wheels-${{ matrix.python-tag }}
-        path: dist/*
-
   sdist:
     runs-on: ubuntu-24.04
     name: Build source distribution
@@ -202,11 +84,11 @@ jobs:
     - name: Update pip to latest version
       run: python -m pip install -U pip setuptools wheel pytest
     - name: Install built wheel
-      run: python -m pip install --pre --no-binary fisher --find-links=dist fisher
-    - name: Extract for tests
-      run: tar xzvf dist/*.tar.gz && ls -lh && cp fisher-*/tests.py . && rm -r fisher-*
-    - name: Run tests without coverage
-      run: py.test tests.py
+      run: python -m pip install --pre --no-binary fisher-dbolser-test --find-links=dist fisher-dbolser-test
+    - name: Extract tests from sdist
+      run: tar xzvf dist/*.tar.gz && cp -r fisher_dbolser_test-*/tests/ . && rm -r fisher_dbolser_test-*
+    - name: Run tests
+      run: pytest tests/
 
   upload:
     environment: PyPI
@@ -218,10 +100,6 @@ jobs:
     - sdist
     - test-sdist
     - wheel-macos-x86_64
-    - wheel-legacy-linux-x86_64
-    - wheel-legacy-linux-aarch64
-    - wheel-legacy-macos-x86_64
-    - wheel-legacy-win-x86_64
     steps:
     - uses: actions/download-artifact@v8
       with:
