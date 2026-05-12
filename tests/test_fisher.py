@@ -248,8 +248,6 @@ class TestPValuesObject:
 class TestTablePrinter:
     def test_known_output(self):
         """Verify table printer produces expected ReST-formatted output."""
-        from fisher.tableprinter import print_2x2_table
-
         table = [12, 5, 29, 2]
         s = print_2x2_table(
             table,
