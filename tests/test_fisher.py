@@ -268,8 +268,6 @@ class TestTablePrinter:
 
     def test_output_has_rst_separators(self):
         """Output should have ReST-style '=' separator lines."""
-        from fisher.tableprinter import print_2x2_table
-
         s = print_2x2_table([1, 2, 3, 4], ["A", "B"], ["X", "Y"])
         lines = s.strip().split("\n")
         # First and last lines should be separator lines (all = and spaces)
