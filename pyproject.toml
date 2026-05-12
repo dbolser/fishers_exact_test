@@ -1,5 +1,5 @@
 [project]
-name = "fisher"
+name = "fisher-dbolser-test"
 version = "0.0.0"
 description = "Fast Fisher's Exact Test"
 readme = "README.md"
