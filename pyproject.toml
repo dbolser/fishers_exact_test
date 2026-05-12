@@ -3,17 +3,17 @@ name = "fisher"
 version = "0.0.0"
 description = "Fast Fisher's Exact Test"
 readme = "README.md"
-license = "BSD-3-Clause"
+license = {text = "BSD"}
 requires-python = ">=3.8"
 authors = [
     { name = "Haibao Tang" },
     { name = "Brent Pedersen", email = "bpederse@gmail.com" },
 ]
 keywords = ["statistics", "cython"]
-dependencies = [
-    "cython>=3.2.4",
-    "numpy",
-]
+
+# Not switched from pip...
+dependencies = []
+
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
@@ -47,4 +47,6 @@ dev = [
     "pip>=25.0.1",
     "ruff>=0.15.12",
     "setuptools>=75.3.4",
+    "cython>=3.2.4",
+    "numpy",
 ]
