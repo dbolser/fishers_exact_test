@@ -12,7 +12,10 @@ authors = [
 keywords = ["statistics", "cython"]
 
 # Not switched from pip...
-dependencies = []
+dependencies = [
+    "cython>=3.2.4",
+    "numpy>=1.24.4",
+]
 
 classifiers = [
     "Development Status :: 3 - Alpha",
