@@ -1,8 +1,8 @@
 import numpy as np
 import pytest
 
-from fisher import pvalue, pvalue_npy
-from fisher.cfisher import pvalue_population
+from fisher import pvalue, pvalue_npy, pvalue_population
+from fisher.tableprinter import print_2x2_table
 
 
 EPSILON = 1e-10
