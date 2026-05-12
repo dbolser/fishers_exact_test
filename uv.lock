@@ -77,7 +77,7 @@ wheels = [
 ]
 
 [[package]]
-name = "fisher"
+name = "fisher-dbolser-test"
 version = "0.0.0"
 source = { editable = "." }
 dependencies = [
