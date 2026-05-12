@@ -184,9 +184,9 @@ jobs:
     - name: Update pip to latest version
       run: python -m pip install -U pip setuptools wheel pytest
     - name: Install built wheel
-      run: python -m pip install --pre --no-binary fisher-dbolser-test --find-links=dist fisher-dbolser-test
+      run: python -m pip install --pre --no-binary fisher --find-links=dist fisher
     - name: Extract tests from sdist
-      run: tar xzvf dist/*.tar.gz && cp -r fisher_dbolser_test-*/tests/ . && rm -r fisher_dbolser_test-*
+      run: tar xzvf dist/*.tar.gz && cp -r fisher-*/tests/ . && rm -r fisher-*
     - name: Run tests
       run: pytest tests/
 
