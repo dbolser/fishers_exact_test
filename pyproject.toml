@@ -1,6 +1,6 @@
 [project]
 name = "fisher-dbolser-test"
-version = "0.0.0"
+dynamic = ["version"]
 description = "Fast Fisher's Exact Test"
 readme = "README.md"
 license = {text = "BSD"}
@@ -11,9 +11,7 @@ authors = [
 ]
 keywords = ["statistics", "cython"]
 
-# Not switched from pip...
 dependencies = [
-    "cython>=3.2.4",
     "numpy>=1.24.4",
 ]
 
