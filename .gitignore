@@ -5,3 +5,4 @@ dist/
 *.pyc
 MANIFEST
 src/cfisher.c
+.eggs
