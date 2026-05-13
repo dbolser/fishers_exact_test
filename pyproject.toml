@@ -3,7 +3,7 @@ name = "fisher-dbolser-test"
 dynamic = ["version"]
 description = "Fast Fisher's Exact Test"
 readme = "README.md"
-license = {text = "BSD"}
+license = "BSD-3-Clause"
 requires-python = ">=3.8"
 authors = [
     { name = "Haibao Tang" },
@@ -19,7 +19,6 @@ classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: BSD License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Topic :: Scientific/Engineering",
