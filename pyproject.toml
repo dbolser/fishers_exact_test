@@ -19,6 +19,7 @@ classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Topic :: Scientific/Engineering",
@@ -28,7 +29,14 @@ classifiers = [
 Homepage = "http://github.com/brentp/fishers_exact_test"
 
 [project.optional-dependencies]
-dev = []
+dev = [
+    "pip>=25.0.1",
+    "pytest>=8.0",
+    "ruff>=0.15.12",
+    "setuptools>=75.3.4",
+    "cython>=3.2.4",
+    "numpy",
+]
 
 [build-system]
 requires = ["setuptools", "cython", "numpy", "versioneer"]
@@ -40,13 +48,3 @@ style = "pep440-pre"
 versionfile_source = "fisher/_version.py"
 versionfile_build = "fisher/_version.py"
 tag_prefix = "v"
-
-[dependency-groups]
-dev = [
-    "pip>=25.0.1",
-    "pytest>=8.0",
-    "ruff>=0.15.12",
-    "setuptools>=75.3.4",
-    "cython>=3.2.4",
-    "numpy",
-]

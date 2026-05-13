@@ -234,12 +234,18 @@ class TestPValuesObject:
         assert r.startswith("PValues(")
 
     def test_comparison_raises(self):
-        """Comparing a PValues object directly should raise an exception."""
+        """Ordering comparisons on a PValues object directly should raise TypeError."""
         p = pvalue(12, 5, 29, 2)
         with pytest.raises(TypeError, match="must compare with one of the attributes"):
             p < 0.05
-        with pytest.raises(TypeError, match="must compare with one of the attributes"):
-            p == 0.05
+
+    def test_equality_does_not_raise(self):
+        """Equality checks should work (identity) and not raise."""
+        p = pvalue(12, 5, 29, 2)
+        assert p == p
+        assert not (p == pvalue(1, 2, 3, 4))
+        assert p != pvalue(1, 2, 3, 4)
+        assert p is not None
 
 
 # ---------------------------------------------------------------------------

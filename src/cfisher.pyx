@@ -80,8 +80,6 @@ cdef class PValues:
 
     def __lt__(self, other): raise TypeError("must compare with one of the attributes not the PValues object")
     def __le__(self, other): raise TypeError("must compare with one of the attributes not the PValues object")
-    def __eq__(self, other): raise TypeError("must compare with one of the attributes not the PValues object")
-    def __ne__(self, other): raise TypeError("must compare with one of the attributes not the PValues object")
     def __gt__(self, other): raise TypeError("must compare with one of the attributes not the PValues object")
     def __ge__(self, other): raise TypeError("must compare with one of the attributes not the PValues object")
 
