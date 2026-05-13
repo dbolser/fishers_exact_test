@@ -23,7 +23,7 @@ jobs:
       with:
         enable-cache: false
     - name: Sync dependencies
-      run: uv sync --no-install-project
+      run: uv sync --no-install-project --extra dev
     - name: Build Cython extension
       run: uv run python setup.py build_ext --inplace --force
     - name: Run tests
