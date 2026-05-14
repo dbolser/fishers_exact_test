@@ -6,3 +6,4 @@ dist/
 MANIFEST
 src/cfisher.c
 .eggs
+fisher*.egg-info
