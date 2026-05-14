@@ -104,6 +104,13 @@ dev = [
     { name = "setuptools", version = "82.0.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.9'" },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "pytest", version = "8.3.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
+    { name = "pytest", version = "8.4.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
+    { name = "pytest", version = "9.0.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "cython", marker = "extra == 'dev'", specifier = ">=3.2.4" },
@@ -115,6 +122,9 @@ requires-dist = [
     { name = "setuptools", marker = "extra == 'dev'", specifier = ">=75.3.4" },
 ]
 provides-extras = ["dev"]
+
+[package.metadata.requires-dev]
+dev = [{ name = "pytest", specifier = ">=8.3.5" }]
 
 [[package]]
 name = "iniconfig"
