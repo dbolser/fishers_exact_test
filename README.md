@@ -29,7 +29,8 @@ From PyPI :
 
 Or install the development version :
 
-    pip install git+git://github.com/brentp/fishers_exact_test.git
+    pip install git+https://github.com/brentp/fishers_exact_test.git
+    uv pip install git+https://github.com/brentp/fishers_exact_test.git
 
 ## Usage
 
