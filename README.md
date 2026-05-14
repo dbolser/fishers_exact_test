@@ -21,11 +21,18 @@ test.
 Within this folder :
 
     git clone git://github.com/brentp/fishers_exact_test.git
+    cd fishers_exact_test
     pip install .
+
+Or with uv :
+
+    uv sync
+    uv run pytest
 
 From PyPI :
 
     pip install fisher
+    uv add fisher
 
 Or install the development version :
 
