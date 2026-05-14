@@ -86,7 +86,7 @@ jobs:
     - name: Install built wheel
       run: python -m pip install --pre dist/*.tar.gz
     - name: Extract tests from sdist
-      run: tar xzvf dist/*.tar.gz && cp -r fisher_dbolser_test-*/tests/ . && rm -r fisher_dbolser_test-*
+      run: tar xzvf dist/*.tar.gz && cp -r fisher-*/tests/ . && rm -r fisher-*
     - name: Run tests
       run: pytest tests/
 
