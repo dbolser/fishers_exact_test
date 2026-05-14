@@ -1,9 +1,9 @@
 [project]
-name = "fisher-dbolser-test"
+name = "fisher"
 dynamic = ["version"]
 description = "Fast Fisher's Exact Test"
 readme = "README.md"
-license = "BSD-3-Clause"
+license = {text = "BSD-3-Clause"}
 requires-python = ">=3.8"
 authors = [
     { name = "Haibao Tang" },
@@ -47,3 +47,8 @@ style = "pep440-pre"
 versionfile_source = "fisher/_version.py"
 versionfile_build = "fisher/_version.py"
 tag_prefix = "v"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+]
