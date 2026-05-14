@@ -1,9 +1,10 @@
-fisher/*.so
-fisher-egg.info/
+.coverage
+.eggs
+*.pyc
 build/
 dist/
-*.pyc
+fisher-egg.info/
+fisher.egg-info/
+fisher/*.so
 MANIFEST
 src/cfisher.c
-.eggs
-fisher*.egg-info
